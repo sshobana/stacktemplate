@@ -2,13 +2,10 @@
     "Description": "API Gateway with Lambda as backend",
     "Parameters": {
         "LambdaFileName": {
-            "Default": "index.zip",
-            "Type": "String"
-        },
-        "LambdaSourceBucket": {
-            "Default": "testlambdaapi",
+            "Default": "$ stacktemplate/lambdaonly.json",
             "Type": "String"
         }
+        
        
 
     },
@@ -17,10 +14,8 @@
         "Lambda": {
             "Properties": {
                 "Code": {
-                    "S3Bucket": {
-                        "Ref": "LambdaSourceBucket"
-                    },
-                    "S3Key": {
+                   
+                    "Key": {
                         "Ref": "LambdaFileName"
                     }
                 },
