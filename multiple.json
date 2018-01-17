@@ -1,0 +1,147 @@
+{
+    "Parameters": {
+        "LambdaFileName": {
+            "Default": "index.zip",
+            "Type": "String"
+        },
+        "LambdaSourceBucket": {
+            "Default": "testlambdaapi",
+            "Type": "String"
+        },
+        "LambdaUploadName":{
+              "Default":"lambda_function.zip",
+              "Type":"String"
+         },
+         "LambdadeleteName":{
+               "Default":"stack.zip",
+               "Type":"String"
+          }
+
+    },
+
+    "Resources": {
+        "LambdauploadFunction": {
+            "Properties": {
+                "Code": {
+                    "S3Bucket": {
+                        "Ref": "LambdaSourceBucket"
+                    },
+                    "S3Key": {
+                        "Ref": "LambdaFileName"
+                    }
+                },
+                
+                "Handler": "index.lambda_handler",
+                "MemorySize": 128,
+                "Role": {
+                    "Fn::GetAtt": [
+                        "LambdaRole",
+                        "Arn"
+                    ]
+                },
+                "Runtime": "python2.7",
+                "Timeout": 10
+            },
+            "Type": "AWS::Lambda::Function"
+        },
+        "LambdaretriveFunction": {
+            "Properties": {
+                "Code": {
+                    "S3Bucket": {
+                        "Ref": "LambdaSourceBucket"
+                    },
+                    "S3Key": {
+                        "Ref": "LambdaUploadName"
+                    }
+                },
+                
+                "Handler": "index.lambda_handler",
+                "MemorySize": 128,
+                "Role": {
+                    "Fn::GetAtt": [
+                        "LambdaRole",
+                        "Arn"
+                    ]
+                },
+                "Runtime": "python2.7",
+                "Timeout": 60
+            },
+            "Type": "AWS::Lambda::Function"
+        },
+        "LambdadeleteFunction": {
+            "Properties": {
+                "Code": {
+                    "S3Bucket": {
+                        "Ref": "LambdaSourceBucket"
+                    },
+                    "S3Key": {
+                        "Ref": "LambdadeleteName"
+                    }
+                },
+               
+                "Handler": "index.lambda_handler",
+                "MemorySize": 128,
+                "Role": {
+                    "Fn::GetAtt": [
+                        "LambdaRole",
+                        "Arn"
+                    ]
+                },
+                "Runtime": "python2.7",
+                "Timeout": 10
+            },
+            "Type": "AWS::Lambda::Function"
+        },
+
+     "LambdaRole": {
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Statement": [
+                        {
+                            "Action": [
+                                "sts:AssumeRole"
+                            ],
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "lambda.amazonaws.com"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "Policies": [
+                    {
+                        "PolicyDocument": {
+                            "Statement": [
+                                {
+                                    "Action": [
+                                        "ec2:DescribeImages",
+                                        "ec2:DeregisterImage"
+                                    ],
+                                    "Effect": "Allow",
+                                    "Resource": [
+                                        "*"
+                                    ]
+                                },
+                                {
+                                    "Action": [
+                                        "logs:CreateLogGroup",
+                                        "logs:CreateLogStream",
+                                        "logs:PutLogEvents"
+                                    ],
+                                    "Effect": "Allow",
+                                    "Resource": [
+                                        "arn:aws:logs:*:*:*"
+                                    ]
+                                }
+                            ]
+                        },
+                        "PolicyName": "LambdaPolicy"
+                    }
+                ]
+            },
+            "Type": "AWS::IAM::Role"
+        },
+    }
+}
