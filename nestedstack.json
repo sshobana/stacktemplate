@@ -1,0 +1,30 @@
+{
+"Resources" :
+ {
+
+       "Apiandlambda" : {
+
+      "Type" : "AWS::CloudFormation::Stack",
+
+      "Properties" : {
+
+          "TemplateURL" : "https://s3.amazonaws.com/cloudformationlambda/lambda+.yaml",
+
+        }
+
+     },
+
+       "customauth" : {
+
+      "Type" : "AWS::CloudFormation::Stack",
+
+      "Properties" : {
+
+          "TemplateURL" : "https://s3.amazonaws.com/cloudformationlambda/customauth.json",
+
+        }
+
+      },
+
+}
+}
