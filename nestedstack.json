@@ -8,7 +8,7 @@
 
       "Properties" : {
 
-          "TemplateURL" : "https://s3.amazonaws.com/cloudformationlambda/lambda+.yaml",
+          "TemplateURL" : "$ stacktemplate/multiple.json",
 
         }
 
@@ -20,7 +20,7 @@
 
       "Properties" : {
 
-          "TemplateURL" : "https://s3.amazonaws.com/cloudformationlambda/customauth.json",
+          "TemplateURL" : "$ stacktemplate/authlambdamode.json",
 
         }
 
