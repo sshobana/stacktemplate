@@ -1,0 +1,45 @@
+{
+    "Description": "API Gateway with Lambda as backend",
+    "Parameters": {
+        "LambdaFileName": {
+            "Default": "index.zip",
+            "Type": "String"
+        },
+        "LambdaSourceBucket": {
+            "Default": "testlambdaapi",
+            "Type": "String"
+        }
+       
+
+    },
+    "Resources": {
+      
+        "Lambda": {
+            "Properties": {
+                "Code": {
+                    "S3Bucket": {
+                        "Ref": "LambdaSourceBucket"
+                    },
+                    "S3Key": {
+                        "Ref": "LambdaFileName"
+                    }
+                },
+                "Handler": "index.lambda_handler",
+                "FunctionName":"Upload",
+                "MemorySize": 128,
+                "Role": {
+                    
+                    "https://s3.amazonaws.com/cli109/role.json"
+                },
+                "Runtime": "python2.7",
+                "Timeout": 30
+            },
+            "Type": "AWS::Lambda::Function"
+        }
+    },
+
+
+}
+
+
+
