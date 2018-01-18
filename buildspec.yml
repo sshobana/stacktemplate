@@ -1,0 +1,10 @@
+Version: 0.1
+phases:
+  install:
+    commands:
+      - aws cloudformation package --template-file ./multiple.json --s3-bucket threatresponse.python-lambda-profiler 
+                                   --output-template-file ./multiple.yml
+artifacts:
+  type: zip
+  files:
+    - multiple.json
