@@ -1,19 +1,16 @@
 {
     "Parameters": {
         "LambdaFileName": {
-            "Default": "index.zip",
+            "Default": "$ stacktemplate/index.zip",
             "Type": "String"
         },
-        "LambdaSourceBucket": {
-            "Default": "testlambdaapi",
-            "Type": "String"
-        },
+        
         "LambdaUploadName":{
-              "Default":"lambda_function.zip",
+              "Default":"$ stacktemplate/lambda_function.zip",
               "Type":"String"
          },
          "LambdadeleteName":{
-               "Default":"stack.zip",
+               "Default":"$ stacktemplate/stack.zip",
                "Type":"String"
           }
 
@@ -23,9 +20,7 @@
         "LambdauploadFunction": {
             "Properties": {
                 "Code": {
-                    "S3Bucket": {
-                        "Ref": "LambdaSourceBucket"
-                    },
+                    
                     "S3Key": {
                         "Ref": "LambdaFileName"
                     }
@@ -47,9 +42,6 @@
         "LambdaretriveFunction": {
             "Properties": {
                 "Code": {
-                    "S3Bucket": {
-                        "Ref": "LambdaSourceBucket"
-                    },
                     "S3Key": {
                         "Ref": "LambdaUploadName"
                     }
@@ -71,9 +63,7 @@
         "LambdadeleteFunction": {
             "Properties": {
                 "Code": {
-                    "S3Bucket": {
-                        "Ref": "LambdaSourceBucket"
-                    },
+                    
                     "S3Key": {
                         "Ref": "LambdadeleteName"
                     }
