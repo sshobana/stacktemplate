@@ -1,44 +1,76 @@
 {
-    "Description": "API Gateway with Lambda as backend",
-    "Parameters": {
-        "LambdaFileName": {
-            "Default": "$ stacktemplate/index.zip",
-            "Type": "String"
-        },
-        "Role":{
-            "Default":"$ stacktemplate/role.json",
-            "Type":"String"
-        }
-       
 
-    },
     "Resources": {
       
         "Lambda": {
             "Properties": {
-                "Code": {
-                    
-                    "Key": {
-                        "Ref": "LambdaFileName"
-                    }
-                },
                 "Handler": "index.lambda_handler",
                 "FunctionName":"Upload",
+                "CodeUri":"/stacktemplate/index.zip",
                 "MemorySize": 128,
                 "Role": {
-                    "Rolekey":{
-                    "Ref":"Role"
-                    }
+                    
+                    "Ref":"LambdaRole"
                 },
                 "Runtime": "python2.7",
                 "Timeout": 30
             },
             "Type": "AWS::Lambda::Function"
-        }
-    },
-
+        },
+    
+"LambdaRole": {
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Statement": [
+                        {
+                            "Action": [
+                                "sts:AssumeRole"
+                            ],
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "lambda.amazonaws.com"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "Policies": [
+                    {
+                        "PolicyDocument": {
+                            "Statement": [
+                                {
+                                    "Action": [
+                                        "ec2:DescribeImages",
+                                        "ec2:DeregisterImage"
+                                    ],
+                                    "Effect": "Allow",
+                                    "Resource": [
+                                        "*"
+                                    ]
+                                },
+                                {
+                                    "Action": [
+                                        "logs:CreateLogGroup",
+                                        "logs:CreateLogStream",
+                                        "logs:PutLogEvents"
+                                    ],
+                                    "Effect": "Allow",
+                                    "Resource": [
+                                        "arn:aws:logs:*:*:*"
+                                    ]
+                                }
+                            ]
+                        },
+                        "PolicyName": "LambdaPolicy"
+                    }
+                ]
+            },
+            "Type": "AWS::IAM::Role"
+        },
 }
 
+}
 
 
 
