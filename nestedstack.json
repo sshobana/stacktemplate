@@ -2,13 +2,13 @@
 "Resources" :
  {
 
-       "Apiandlambda" : {
+       "lambda" : {
 
       "Type" : "AWS::CloudFormation::Stack",
 
       "Properties" : {
 
-          "TemplateURL" : "$ stacktemplate/multiple.json",
+          "TemplateURL" : "https://s3.amazonaws.com/testlambdaapi/multiple.json",
 
         }
 
@@ -20,7 +20,7 @@
 
       "Properties" : {
 
-          "TemplateURL" : "$ stacktemplate/authlambdamode.json",
+          "TemplateURL" : "https://s3.amazonaws.com/testlambdaapi/customauth.json",
 
         }
 
