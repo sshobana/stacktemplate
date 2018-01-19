@@ -6,7 +6,7 @@
             "Properties": {
                 "Handler": "index.lambda_handler",
                 "FunctionName":"Upload",
-                "CodeUri":"/stacktemplate/index.zip",
+                "CodeUri":"index.zip",
                 "MemorySize": 128,
                 "Role": {
                     
